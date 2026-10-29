@@ -1,0 +1,44 @@
+{
+  "comment": "工单中心权限清单（对照模板；声明能力不等于授予，实际权限由角色规则与用户投影决定）",
+  "applicationCode": "ticket",
+  "pagePermissions": [
+    "ticket.page.my",
+    "ticket.page.all",
+    "ticket.page.handle",
+    "ticket.page.admin",
+    "ticket.page.report"
+  ],
+  "apiPermissions": [
+    "ticket:read",
+    "ticket:create",
+    "ticket:comment",
+    "ticket:claim",
+    "ticket:assign",
+    "ticket:transfer",
+    "ticket:resolve",
+    "ticket:close",
+    "ticket:withdraw",
+    "ticket:evaluate",
+    "ticket:group-admin",
+    "ticket:type-admin",
+    "ticket:report"
+  ],
+  "dataResources": [
+    {
+      "resource": "ticket",
+      "actions": ["read", "write"],
+      "constraintDimensions": ["ownerSubjectId", "assigneeGroup"],
+      "note": "本人=EQ ownerSubjectId；组内=IN assigneeGroup；管理=all=true"
+    },
+    {
+      "resource": "ticketType",
+      "actions": ["read", "write"],
+      "note": "治理面，仅 admin 角色"
+    },
+    {
+      "resource": "ticketGroup",
+      "actions": ["read", "write"],
+      "note": "治理面，仅 admin 角色"
+    }
+  ]
+}

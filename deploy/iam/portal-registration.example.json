@@ -1,0 +1,27 @@
+{
+  "comment": "工单中心可信应用注册值对照模板（非导入请求体；机密与 client_id 不进仓，占位符由部署管理员替换）",
+  "applicationCode": "ticket",
+  "displayName": "工单中心",
+  "icon": "message",
+  "portal": {
+    "entry": "/app/ticket/index.html",
+    "apiBase": "/api/ticket",
+    "targetOrigin": "http://ticket-web:80",
+    "menuTree": [
+      { "code": "ticket-my", "name": "我的工单", "nodeType": "PAGE", "route": "/", "requiredPagePermission": "ticket.page.my", "icon": "document", "sortOrder": 1, "children": [] },
+      { "code": "ticket-handle", "name": "处理台", "nodeType": "PAGE", "route": "/handle", "requiredPagePermission": "ticket.page.handle", "icon": "workflow", "sortOrder": 2, "children": [] },
+      { "code": "ticket-all", "name": "全部工单", "nodeType": "PAGE", "route": "/handle/all", "requiredPagePermission": "ticket.page.all", "icon": "search", "sortOrder": 3, "children": [] },
+      { "code": "ticket-admin", "name": "类型与处理组", "nodeType": "PAGE", "route": "/admin", "requiredPagePermission": "ticket.page.admin", "icon": "settings", "sortOrder": 4, "children": [] },
+      { "code": "ticket-report", "name": "统计报表", "nodeType": "PAGE", "route": "/report", "requiredPagePermission": "ticket.page.report", "icon": "analytics", "sortOrder": 5, "children": [] }
+    ]
+  },
+  "oauthClient": {
+    "clientName": "ticket-portal-web",
+    "clientType": "PUBLIC",
+    "redirectUris": ["https://portal.example.test/app/ticket/oauth-callback"],
+    "grantTypes": ["authorization_code"],
+    "authenticationMethods": ["none"],
+    "scopes": ["openid", "profile"],
+    "requireConsent": false
+  }
+}

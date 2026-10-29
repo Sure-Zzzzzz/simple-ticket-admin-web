@@ -1,0 +1,18 @@
+services:
+  ticket-web:
+    image: dockerpull.pw/nginx:latest
+    container_name: ticket-web
+    restart: unless-stopped
+    networks:
+      - iam-local
+      - portal-gateway-upstream
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../dist:/www/ticket:ro
+networks:
+  iam-local:
+    external: true
+    name: iam-local_default
+  portal-gateway-upstream:
+    external: true
+    name: portal-gateway-upstream

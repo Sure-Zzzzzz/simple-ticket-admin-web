@@ -1,0 +1,124 @@
+/* 工单中心样式：基线（button、icon-button、form-select、page-header、pagination、dialog、drawer）全部由
+   主题契约 theme.css 提供，本仓不复制同名实现；本文件只含仓专属布局（AKSK 管理台同构）与 工单业务组件。 */
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+.ticket-admin-app { min-height: 100%; min-width: 0; width: 100%; font-family: var(--iam-font-family); font-size: 14px; background: var(--iam-color-canvas); color: var(--iam-color-text-primary); line-height: 1.5; }
+html, body, #app { margin: 0; min-width: 0; min-height: 100%; }
+
+/* ===== 页面骨架（AKSK management-page 同构） ===== */
+.page { align-content: start; display: grid; gap: 20px; width: 100%; min-width: 0; }
+.ticket-admin-app--standalone .page { padding: 24px; }
+h2 { font-size: 16px; margin: 0; font-weight: 650; }
+h3 { font-size: 14px; margin: 0; font-weight: 600; }
+.count, .muted { color: var(--iam-color-text-secondary); }
+.count { font-size: 13px; font-weight: 600; }
+a { color: var(--iam-color-primary); text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+:is(a, input, textarea, select):focus-visible { outline: 2px solid var(--iam-color-focus-ring); outline-offset: 2px; }
+
+input, textarea { min-height: 40px; min-width: 0; max-width: 100%; padding: 8px 12px; border: 1px solid var(--iam-color-border); border-radius: var(--iam-radius-control); background: var(--iam-color-surface-raised); color: var(--iam-color-text-primary); }
+select { min-height: 40px; padding: 8px 12px; border: 1px solid var(--iam-color-border); border-radius: var(--iam-radius-control); background: var(--iam-color-surface-raised); color: var(--iam-color-text-primary); }
+input:disabled, textarea:disabled, select:disabled { background: var(--iam-color-surface-soft); }
+label { display: grid; font-size: 13px; font-weight: 700; gap: 7px; }
+
+/* ===== 列表卡（IAM panel 同构：单卡含标题/筛选行/表格/分页） ===== */
+/* 筛选行（IAM user-filter-bar 同构）：控件+按钮组一行，紧随标题 */
+.ticket-filter-bar { align-items: center; border-bottom: none; display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-start; padding: 0 0 14px; }
+.ticket-filter-bar input[type="search"], .ticket-filter-bar input { flex: none; min-width: 220px; width: auto; }
+.ticket-filter-bar .ticket-filter-select { flex: 0 0 180px; }
+.admin-page-actions { display: flex; flex: 0 0 auto; gap: 10px; }
+.ticket-filter-bar .admin-page-actions { margin-left: auto; }
+/* 表格样式随契约 DataTable（1.0.4 起为唯一事实源）；宿主仅保留单元格内容类 */
+.wrap-cell { white-space: normal !important; overflow-wrap: anywhere; }
+.identity-cell { display: inline-grid; gap: 2px; min-width: 0; }
+.identity-main { color: var(--iam-color-text-primary); font-weight: 600; }
+.identity-code { color: var(--iam-color-text-secondary); font-size: 11px; overflow-wrap: anywhere; }
+.ticket-result-cell { display: grid; gap: 8px; justify-items: start; min-width: 0; }
+.ticket-result-detail { margin: 0; min-width: 0; max-width: 100%; overflow-wrap: anywhere; white-space: pre-wrap; }
+.table-action.danger { background: var(--iam-color-danger-bg); border-color: var(--iam-color-danger); color: var(--iam-color-danger); }
+.table-action.danger:hover:not(:disabled) { background: var(--iam-color-danger-bg); border-color: var(--iam-color-danger); color: var(--iam-color-danger); }
+.detail-list .identity-cell { display: inline-grid; }
+
+/* ===== 消息与空态（AKSK 同构配色） ===== */
+.loading-state { color: var(--iam-color-text-secondary); padding: 36px 0; text-align: center; }
+
+/* ===== 工单业务组件（本仓专属） ===== */
+.flow-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; padding: 14px 18px; border-radius: var(--iam-radius-card); background: var(--iam-color-surface); border: 1px solid var(--iam-color-border); box-shadow: var(--iam-shadow-card); }
+.flow-step { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--iam-color-text-secondary); background: var(--iam-color-surface); border: 1px solid var(--iam-color-border); }
+.flow-step.step-current { color: var(--iam-color-surface); background: var(--iam-color-primary); border-color: transparent; }
+.flow-step.step-done { color: var(--iam-color-success); border-color: var(--iam-color-success); }
+.flow-arrow { color: var(--iam-color-text-secondary); opacity: .55; font-size: 13px; padding: 0 2px; }
+
+.stepper { display: flex; align-items: flex-start; }
+.stepper-item { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1 1 0; min-width: 0; position: relative; }
+.stepper-item::before { content: ''; position: absolute; top: 13px; left: -50%; width: 100%; height: 2px; background: var(--iam-color-border); }
+.stepper-item:first-child::before { display: none; }
+.stepper-item.step-done::before { background: var(--iam-color-success); }
+.stepper-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--iam-color-surface); border: 2px solid var(--iam-color-border); color: var(--iam-color-text-secondary); font-size: 13px; font-weight: 650; z-index: 1; }
+.stepper-item.step-done .stepper-dot { border-color: var(--iam-color-success); color: var(--iam-color-success); }
+.stepper-item.step-current .stepper-dot { border-color: var(--iam-color-primary); background: var(--iam-color-primary); color: var(--iam-color-surface); }
+.stepper-item:last-child.step-current .stepper-dot, .stepper-item:last-child.step-done .stepper-dot { background: var(--iam-color-success); border-color: var(--iam-color-success); color: var(--iam-color-surface); }
+.stepper-item:last-child.step-current .stepper-title { color: var(--iam-color-success); }
+.stepper-title { font-size: 13px; font-weight: 700; color: var(--iam-color-text-primary); }
+.stepper-item:not(.step-current):not(.step-done) .stepper-title { color: var(--iam-color-text-secondary); }
+.stepper-desc { color: var(--iam-color-text-secondary); font-size: 12px; text-align: center; max-width: 150px; }
+
+.card-section { background: var(--iam-color-surface); border: 1px solid var(--iam-color-border); border-radius: var(--iam-radius-card); box-shadow: var(--iam-shadow-card); padding: 24px; display: grid; gap: 14px; align-content: start; }
+.card-section .section-heading { align-items: center; display: flex; justify-content: space-between; gap: 12px; }
+.form-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.form-footer { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.todo-item { align-items: center; border: 1px solid var(--iam-color-border); border-radius: var(--iam-radius-control); display: flex; gap: 12px; justify-content: space-between; padding: 12px 14px; }
+.todo-item .todo-main { display: grid; gap: 3px; min-width: 0; }
+.todo-item .todo-title { font-weight: 600; color: var(--iam-color-text-primary); }
+.todo-item .todo-meta { color: var(--iam-color-text-secondary); font-size: 12px; }
+
+/* standalone（独立调试/直开）标题栏：仅标题与返回门户出路，不自带导航（IAM 管理台同构） */
+.ticket-standalone-header { align-items: center; background: var(--iam-color-surface); border-bottom: 1px solid var(--iam-color-border); display: flex; gap: 20px; justify-content: space-between; padding: 14px 24px; flex-wrap: wrap; }
+.ticket-standalone-header h1 { font-size: 18px; margin: 0; }
+
+@media (max-width: 760px) {
+  .page { padding: 16px; }
+  .quote-line { grid-template-columns: 1fr 1fr; }
+  .stepper-desc { display: none; }
+  .todo-item { flex-direction: column; align-items: stretch; }
+}
+
+.todo-actions { display: flex; gap: 8px; }
+.doc-no.full-id { font-size: 13px; color: inherit; }
+
+/* ===== 工单业务组件（本仓专属：状态胶囊/时间线/流转步进） ===== */
+.status-chip { border-radius: 999px; display: inline-flex; font-size: 12px; font-weight: 600; padding: 3px 10px; }
+.status-submitted { background: var(--iam-color-surface-soft); color: var(--iam-color-text-secondary); }
+.status-processing { background: var(--iam-color-primary-soft, var(--iam-color-surface-raised)); color: var(--iam-color-primary); }
+.status-pending_info { background: var(--iam-color-warning-bg, var(--iam-color-surface-raised)); color: var(--iam-color-text-primary); }
+.status-resolved { background: var(--iam-color-surface-raised); color: var(--iam-color-success); }
+.status-closed { background: var(--iam-color-surface-soft); color: var(--iam-color-text-secondary); }
+.status-withdrawn { background: var(--iam-color-surface-soft); color: var(--iam-color-text-secondary); }
+.table-action-cell { text-align: right; }
+.load-more-row { display: flex; justify-content: center; padding-top: 4px; }
+
+.ticket-flow { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px 18px; border-radius: var(--iam-radius-card); background: var(--iam-color-surface); border: 1px solid var(--iam-color-border); box-shadow: var(--iam-shadow-card); }
+.ticket-meta-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.ticket-meta-item { display: grid; gap: 3px; }
+.ticket-meta-label { color: var(--iam-color-text-secondary); font-size: 12px; }
+.ticket-meta-value { font-weight: 600; overflow-wrap: anywhere; }
+.timeline-item { border-left: 2px solid var(--iam-color-border); display: grid; gap: 6px; margin-left: 8px; padding: 0 0 16px 16px; position: relative; }
+.timeline-item::before { background: var(--iam-color-surface); border: 2px solid var(--iam-color-primary); border-radius: 50%; content: ''; height: 10px; left: -7px; position: absolute; top: 2px; width: 10px; }
+.timeline-item .timeline-time { color: var(--iam-color-text-secondary); font-size: 12px; }
+.timeline-item .timeline-title { font-weight: 600; }
+.comment-bubble { background: var(--iam-color-surface-raised); border: 1px solid var(--iam-color-border); border-radius: var(--iam-radius-control); padding: 10px 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.comment-bubble.internal { background: var(--iam-color-warning-bg, var(--iam-color-surface-soft)); }
+.attachment-area { border-top: 1px solid var(--iam-color-border); display: grid; gap: 10px; padding-top: 14px; }
+.attachment-list { display: grid; gap: 0; list-style: none; margin: 0; padding: 0; }
+.attachment-row { align-items: center; border-bottom: 1px solid var(--iam-color-border); display: flex; flex-wrap: wrap; gap: 10px; min-width: 0; padding: 10px 0; }
+.attachment-row:last-child { border-bottom: 0; }
+.attachment-name { flex: 1 1 180px; min-width: 0; overflow-wrap: anywhere; }
+.attachment-row .table-action { align-items: center; display: inline-flex; gap: 6px; }
+.ticket-comment-form, .ticket-editor { display: grid; gap: 12px; min-width: 0; }
+.ticket-comment-form textarea { width: 100%; }
+.ticket-editor { border-top: 1px solid var(--iam-color-border); padding-top: 16px; }
+.ticket-inline-check { align-items: center; display: inline-flex; gap: 8px; font-weight: 400; }
+.ticket-inline-check input[type="checkbox"] { height: 16px; min-height: 16px; width: 16px; }
