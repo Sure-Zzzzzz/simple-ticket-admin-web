@@ -17,11 +17,18 @@
 ```bash
 npm install
 npm run dev        # 5179，/api 代理到 localhost:8395（工单 Server runtime）
-npm run build      # 产物 dist/（base /app/ticket/）
+npm run build      # 产物 dist/（base /app/ticket/）；缺少 client id 时构建直接失败
 npm run type-check && npm run lint && npm run test:run
 ```
 
-构建期配置：`VITE_TICKET_PKCE_CLIENT_ID` / `VITE_TICKET_PKCE_ISSUER` 由 CI 凭据注入（机密与 client_id 不进仓），仓库只留使用形态不保留值。
+构建期配置：`VITE_TICKET_PKCE_CLIENT_ID` / `VITE_TICKET_PKCE_ISSUER` 由 CI 凭据注入（机密与 client_id 不进仓），仓库只留使用形态不保留值。手工构建前先在当前进程注入已登记的公开客户端标识，例如 PowerShell：
+
+```powershell
+$env:VITE_TICKET_PKCE_CLIENT_ID = '<PUBLIC_CLIENT_ID>'
+npm run build
+```
+
+`prebuild` 会在 Vite 运行前阻断缺少客户端标识的产物，避免生成能打包但无法在 Portal 中挂载的空白页面。
 
 ## 可信应用接入
 
